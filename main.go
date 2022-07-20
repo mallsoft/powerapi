@@ -19,6 +19,9 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(time.Now().Format("15:04"), "Request received:", r.Header.Get("X-Forwarded-For"))
 
+		// cors
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+
 		if time.Now().After(lastRequest.Add(time.Minute * 5)) {
 			zones = getData()
 			lastRequest = time.Now()
